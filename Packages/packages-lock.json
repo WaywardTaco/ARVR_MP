@@ -17,6 +17,16 @@
         "com.unity.burst": "1.8.17"
       }
     },
+    "com.nianticlabs.lightship.sharedar": {
+      "version": "https://github.com/niantic-lightship/sharedar-upm.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.nianticlabs.lightship": "3.10.0-2411021056",
+        "com.unity.netcode.gameobjects": "1.2.0"
+      },
+      "hash": "eba003557d57e4e38f5e0a550df99d93755d843f"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.0",
       "depth": 0,
@@ -112,9 +122,19 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.netcode.gameobjects": {
+      "version": "1.8.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.transport": "1.4.0",
+        "com.unity.nuget.mono-cecil": "1.10.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 4,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -196,6 +216,17 @@
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.transport": {
+      "version": "1.4.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.6.6",
+        "com.unity.collections": "1.2.4",
+        "com.unity.mathematics": "1.2.6"
       },
       "url": "https://packages.unity.com"
     },
