@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.nianticlabs.lightship": "file:D:/OneDrive/[01] Downloads/ardk-upm-3.10.0.tgz",
     "com.unity.ai.navigation": "2.0.0",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.ide.rider": "3.0.28",
