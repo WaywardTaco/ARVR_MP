@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.nianticlabs.lightship": "file:D:/OneDrive/[01] Downloads/ardk-upm-3.10.0.tgz",
+    "com.nianticlabs.lightship": "https://github.com/niantic-lightship/ardk-upm.git",
     "com.nianticlabs.lightship.sharedar": "https://github.com/niantic-lightship/sharedar-upm.git",
     "com.unity.ai.navigation": "2.0.0",
     "com.unity.collab-proxy": "2.5.2",
