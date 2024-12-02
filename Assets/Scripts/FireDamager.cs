@@ -9,7 +9,6 @@ public class FireDamager : MonoBehaviour
     [SerializeField] private float fireDamageInterval;
     private PlayerHealthUpdater playerHealthUpdater;
     private void Update() {
-        Debug.Log("Update Function");
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -20,8 +19,8 @@ public class FireDamager : MonoBehaviour
     }
 
     private IEnumerator DealFireDamageAtInterval(){
-        yield return new WaitForSeconds(fireDamageInterval);
         playerHealthUpdater.DealDamage(fireDamage);
+        yield return new WaitForSeconds(fireDamageInterval);
         StartCoroutine(DealFireDamageAtInterval());
     }
 
