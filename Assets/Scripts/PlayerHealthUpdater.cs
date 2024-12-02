@@ -9,10 +9,12 @@ public class PlayerHealthUpdater : MonoBehaviour
     [SerializeField] private float currentHealth;
     [SerializeField] private float damagePanelUpTime;
     [SerializeField] private GameObject damagePanel;
+    private AudioSource damageSFX;
 
     private void Start() {
         currentHealth = maxHealth;
         damagePanel.SetActive(false);
+        damageSFX = this.GetComponent<AudioSource>();
     }
 
     public void DealDamage(float amount){
@@ -23,6 +25,7 @@ public class PlayerHealthUpdater : MonoBehaviour
 
     private IEnumerator TriggerDamagePanel(){
         damagePanel.SetActive(true);
+        damageSFX.Play();
         yield return new WaitForSeconds(damagePanelUpTime);
         damagePanel.SetActive(false);
     }
