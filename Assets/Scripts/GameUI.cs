@@ -13,6 +13,9 @@ public class GameUI : MonoBehaviour
     [SerializeField] private float placeHoverDist;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject loseUI;
+    [SerializeField] private GameObject moveAwayUI;
+    [SerializeField] private GameObject cantPlaceUI;
+    [SerializeField] private float cantPlaceUIFlashTime;
     public TextMeshProUGUI stopwatchText; 
     public GameObject StartPlaceButton;
     private Button toggleButton;
@@ -49,6 +52,8 @@ public class GameUI : MonoBehaviour
 
         winUI.SetActive(false);
         loseUI.SetActive(false);
+        moveAwayUI.SetActive(false);
+        this.cantPlaceUI.SetActive(false);
 
         toggleButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
         objectivePrefab.SetActive(false);
@@ -72,15 +77,16 @@ public class GameUI : MonoBehaviour
 
     void Update()
     {
-        if(objectiveTarget != null){
-            if(objectiveTarget.GetComponent<Objective>().isEntered){
-                winUI.SetActive(true);
-                EndGame();
-            }
-        }
 
         if (isRunning)
         {
+            if(objectiveTarget != null){
+                if(objectiveTarget.GetComponent<Objective>().isEntered){
+                    winUI.SetActive(true);
+                    EndGame();
+                }
+            }
+
             elapsedTime += Time.deltaTime;
             stopwatchText.text = FormatTime(elapsedTime);
         }
@@ -113,8 +119,10 @@ public class GameUI : MonoBehaviour
         if(Vector3.Distance(objectiveTarget.transform.position, Player.transform.position) >= PlayerStartDist){
             isRunning = true;
 
+            moveAwayUI.SetActive(false);
             yield break;
         }
+        moveAwayUI.SetActive(true);
         yield return new WaitForEndOfFrame();
         StartCoroutine(CheckGoalDistance());
     }
@@ -140,10 +148,16 @@ public class GameUI : MonoBehaviour
             StartPlaceButton.SetActive(false);
 
             StartCoroutine(CheckGoalDistance());
+        } else {
+            StartCoroutine(BlinkCantPlace());
         }
     }
 
-
+    private IEnumerator BlinkCantPlace(){
+        this.cantPlaceUI.SetActive(true);
+        yield return new WaitForSeconds(cantPlaceUIFlashTime);
+        this.cantPlaceUI.SetActive(false);
+    }
 
     string FormatTime(float time)
     {
