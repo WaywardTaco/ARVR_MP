@@ -17,8 +17,11 @@ public class Depth_ScreenToWorldPosition : MonoBehaviour
 
     [Header("Prefab Spawning")]
     public GameObject prefabToSpawn; // Assign a prefab in the Inspector
+    public float floorOffset;
     public float spawnInterval = 1f; // Time between spawns
-    public float spawnRadius = 5f;  // Radius around the player to spawn prefabs
+    public float minSpawnRadius = 5f;  // Radius around the player to spawn prefabs
+    public float maxSpawnRadius = 5f;  // Radius around the player to spawn prefabs
+    public LayerMask spawnMask;
 
     private StopwatchUI stopwatchUI; // Reference to the stopwatch
     private Coroutine spawnCoroutine;
@@ -92,14 +95,27 @@ public class Depth_ScreenToWorldPosition : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Attempting Spawn");
-            Vector3 spawnPosition = Random.insideUnitSphere * spawnRadius;
-            spawnPosition += transform.position;
-            spawnPosition.y = transform.position.y; // Adjust for 2D/ground-level spawning
+            // Debug.Log("Attempting Spawn");
+            float randomSpawnDist = Random.Range(minSpawnRadius, maxSpawnRadius);
+            if(Physics.Raycast(this.transform.position, Random.onUnitSphere, out var hit, maxSpawnRadius, spawnMask)){
+                // Debug.Log(hit.collider.gameObject + " Distance: " + hit.distance);
+                
+                if(hit.collider.gameObject.GetComponent<ARPlane>() == null){
+                    yield return new WaitForEndOfFrame();
+                    continue;
+                }
+                if(hit.distance < minSpawnRadius) {
+                    yield return new WaitForEndOfFrame();
+                    continue;
+                }
 
-            Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
-            yield return new WaitForSeconds(spawnInterval);
+                Vector3 spawnPosition = hit.point;
+                Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+
+                yield return new WaitForSeconds(spawnInterval);
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
 }
