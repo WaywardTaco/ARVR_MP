@@ -21,7 +21,11 @@ public class FireSpawner : MonoBehaviour
     public float spawnInterval = 1f; // Time between spawns
     public float minSpawnRadius = 5f;  // Radius around the player to spawn prefabs
     public float maxSpawnRadius = 5f;  // Radius around the player to spawn prefabs
+    public int maxFireCount;
     public LayerMask spawnMask;
+    
+    [SerializeField] private List<GameObject> pooledFires = new List<GameObject>();
+    [SerializeField] private List<GameObject> spawnedFires = new List<GameObject>();
 
     private StopwatchUI stopwatchUI; // Reference to the stopwatch
     private Coroutine spawnCoroutine;
@@ -35,6 +39,8 @@ public class FireSpawner : MonoBehaviour
         {
             Debug.LogError("StopwatchUI script not found in the scene!");
         }
+
+        PoolFires();
     }
 
     void Update()
@@ -56,6 +62,24 @@ public class FireSpawner : MonoBehaviour
                 spawnCoroutine = null;
             }
         }
+    }
+
+    private void PoolFires(){
+        for(int i = 0; i < maxFireCount; i++){
+            GameObject fire = Instantiate(prefabToSpawn, Vector3.zero, Quaternion.identity);
+            fire.SetActive(false);
+            this.pooledFires.Add(fire);
+        }
+    }
+
+    private void SpawnFireAt(Vector3 position){
+        GameObject fire = this.pooledFires[this.pooledFires.Count - 1];
+
+        this.pooledFires.Remove(fire);
+        this.spawnedFires.Add(fire);
+
+        fire.transform.position = position;
+        fire.SetActive(true);
     }
 
     private void UpdateImage()
@@ -111,7 +135,7 @@ public class FireSpawner : MonoBehaviour
 
 
                 Vector3 spawnPosition = hit.point;
-                Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+                this.SpawnFireAt(spawnPosition);
 
                 yield return new WaitForSeconds(spawnInterval);
             }
