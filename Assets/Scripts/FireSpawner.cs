@@ -27,13 +27,13 @@ public class FireSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> pooledFires = new List<GameObject>();
     [SerializeField] private List<GameObject> spawnedFires = new List<GameObject>();
 
-    private StopwatchUI stopwatchUI; // Reference to the stopwatch
+    private GameUI stopwatchUI; // Reference to the stopwatch
     private Coroutine spawnCoroutine;
 
     void Start()
     {
         // Find the StopwatchUI component in the scene
-        stopwatchUI = FindObjectOfType<StopwatchUI>();
+        stopwatchUI = FindObjectOfType<GameUI>();
 
         if (stopwatchUI == null)
         {
@@ -60,8 +60,18 @@ public class FireSpawner : MonoBehaviour
             {
                 StopCoroutine(spawnCoroutine);
                 spawnCoroutine = null;
+                TurnOffAllFires();
             }
         }
+    }
+
+    public void TurnOffAllFires(){
+        foreach(GameObject fire in spawnedFires){
+            fire.SetActive(false);
+            pooledFires.Add(fire);
+        }
+
+        spawnedFires.Clear();
     }
 
     private void PoolFires(){
@@ -119,7 +129,7 @@ public class FireSpawner : MonoBehaviour
     {
         while (true)
         {
-            // Debug.Log("Attempting Spawn");
+            Debug.Log("Attempting Spawn");
             float randomSpawnDist = Random.Range(minSpawnRadius, maxSpawnRadius);
             if(Physics.Raycast(this.transform.position, Random.onUnitSphere, out var hit, maxSpawnRadius, spawnMask)){
                 // Debug.Log(hit.collider.gameObject + " Distance: " + hit.distance);
