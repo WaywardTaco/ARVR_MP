@@ -42,6 +42,7 @@ public class Depth_ScreenToWorldPosition : MonoBehaviour
         // Start or stop spawning based on the stopwatch state
         if (stopwatchUI != null)
         {
+
             if (stopwatchUI.IsRunning() && spawnCoroutine == null)
             {
                 spawnCoroutine = StartCoroutine(SpawnPrefabs());
@@ -91,6 +92,7 @@ public class Depth_ScreenToWorldPosition : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("Attempting Spawn");
             Vector3 spawnPosition = Random.insideUnitSphere * spawnRadius;
             spawnPosition += transform.position;
             spawnPosition.y = transform.position.y; // Adjust for 2D/ground-level spawning
