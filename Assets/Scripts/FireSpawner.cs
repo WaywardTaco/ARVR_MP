@@ -41,7 +41,7 @@ public class FireSpawner : MonoBehaviour
         }
 
         if(this._occlusionManager == null){
-            this._occlusionManager = GameObject.Find("XR Origin").GetComponent<AROcclusionManager>();
+            this._occlusionManager = GameObject.Find("Main Camera").GetComponent<AROcclusionManager>();
         }
 
         PoolFires();

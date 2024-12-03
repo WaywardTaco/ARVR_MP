@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 182359765}
   - component: {fileID: 182359766}
   - component: {fileID: 182359767}
+  - component: {fileID: 182359768}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -427,7 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622d9d78c04d6d740baaa73841f97596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _occlusionManager: {fileID: 1929074795}
+  _occlusionManager: {fileID: 182359768}
   prefabToSpawn: {fileID: 3495247667438887226, guid: 872d9f71b27c51646a7cbad22e1f6af5, type: 3}
   floorOffset: 1.1176
   spawnInterval: 1
@@ -601,6 +602,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &182359768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182359755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15f82cc229284894964d2d30806969d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HumanSegmentationStencilMode: 0
+  m_HumanSegmentationDepthMode: 0
+  m_EnvironmentDepthMode: 1
+  m_EnvironmentDepthTemporalSmoothing: 1
+  m_OcclusionPreferenceMode: 0
 --- !u!1 &183777079
 GameObject:
   m_ObjectHideFlags: 0
