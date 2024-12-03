@@ -431,9 +431,9 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 3495247667438887226, guid: 872d9f71b27c51646a7cbad22e1f6af5, type: 3}
   floorOffset: 1.1176
   spawnInterval: 1
-  minSpawnRadius: 3
-  maxSpawnRadius: 8
-  maxFireCount: 200
+  minSpawnRadius: 2
+  maxSpawnRadius: 20
+  maxFireCount: 100
   spawnMask:
     serializedVersion: 2
     m_Bits: 64
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f29dd94988e4994c8cd2d7f2129c1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
   currentHealth: 0
   damagePanelUpTime: 0.2
   damagePanel: {fileID: 644969515}
@@ -2038,8 +2038,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.27499, y: 39.38}
-  m_SizeDelta: {x: 312.95, y: 78.76}
+  m_AnchoredPosition: {x: 0, y: 29.199997}
+  m_SizeDelta: {x: 258.37, y: 37.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1929074791
 GameObject:
@@ -2399,12 +2399,12 @@ MonoBehaviour:
   loseUI: {fileID: 183777079}
   moveAwayUI: {fileID: 1287403932}
   cantPlaceUI: {fileID: 267628078}
-  cantPlaceUIFlashTime: 2
+  UIFlashTime: 2
   stopwatchText: {fileID: 1495654872}
   StartPlaceButton: {fileID: 1873109863}
   objectivePrefab: {fileID: 5341095774640174523, guid: b3ffff6e7aa0b88468c7fa50d0d14a7f, type: 3}
   Player: {fileID: 182359755}
-  PlayerStartDist: 15
+  PlayerStartDist: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

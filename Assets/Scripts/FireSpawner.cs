@@ -40,7 +40,21 @@ public class FireSpawner : MonoBehaviour
             Debug.LogError("StopwatchUI script not found in the scene!");
         }
 
+        if(this._occlusionManager == null){
+            this._occlusionManager = GameObject.Find("XR Origin").GetComponent<AROcclusionManager>();
+        }
+
         PoolFires();
+    }
+
+    private void OnDestroy() {
+        TurnOffAllFires();
+
+        foreach(GameObject fire in pooledFires){
+            Destroy(fire);
+        }
+
+        pooledFires.Clear();
     }
 
     void Update()

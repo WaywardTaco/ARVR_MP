@@ -15,7 +15,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject loseUI;
     [SerializeField] private GameObject moveAwayUI;
     [SerializeField] private GameObject cantPlaceUI;
-    [SerializeField] private float cantPlaceUIFlashTime;
+    [SerializeField] private float UIFlashTime;
     public TextMeshProUGUI stopwatchText; 
     public GameObject StartPlaceButton;
     private Button toggleButton;
@@ -31,6 +31,7 @@ public class GameUI : MonoBehaviour
     private bool isPlacingGoal = false;
     private bool isGoalOnFloor = false;
     private bool isGameOver = false;
+    private bool canStartGame = false;
     
     private Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
     
@@ -55,7 +56,7 @@ public class GameUI : MonoBehaviour
         moveAwayUI.SetActive(false);
         this.cantPlaceUI.SetActive(false);
 
-        toggleButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+        toggleButton.GetComponentInChildren<TextMeshProUGUI>().text = "Play";
         objectivePrefab.SetActive(false);
 
         elapsedTime = 0f;
@@ -65,6 +66,7 @@ public class GameUI : MonoBehaviour
         isGoalOnFloor = false;
         isRunning = false;
         isGameOver = false;
+        canStartGame = false;
     }
 
     public void EndGame(){
@@ -114,23 +116,25 @@ public class GameUI : MonoBehaviour
         StartCoroutine(UpdateGoalPlacePosition());
     }
 
-    private IEnumerator CheckGoalDistance(){
-        if(objectiveTarget == null) yield break;
+    private void CheckGoalDistance(){
+        if(objectiveTarget == null) return;
         if(Vector3.Distance(objectiveTarget.transform.position, Player.transform.position) >= PlayerStartDist){
             isRunning = true;
-
-            moveAwayUI.SetActive(false);
-            yield break;
+            StartPlaceButton.SetActive(false);
+            return;
         }
-        moveAwayUI.SetActive(true);
-        yield return new WaitForEndOfFrame();
-        StartCoroutine(CheckGoalDistance());
+        StartCoroutine(BlinkObject(this.moveAwayUI));
     }
 
     void ButtonCallback()
     {
         if(isGameOver){
             RestartGame();
+            return;
+        }
+
+        if(canStartGame){
+            CheckGoalDistance();
             return;
         }
 
@@ -145,18 +149,20 @@ public class GameUI : MonoBehaviour
 
         if(isGoalOnFloor){
             isPlacingGoal = false;
-            StartPlaceButton.SetActive(false);
 
-            StartCoroutine(CheckGoalDistance());
+            canStartGame = true;
+            toggleButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+            StartCoroutine(BlinkObject(this.moveAwayUI));
+
         } else {
-            StartCoroutine(BlinkCantPlace());
+            StartCoroutine(BlinkObject(this.cantPlaceUI));
         }
     }
 
-    private IEnumerator BlinkCantPlace(){
-        this.cantPlaceUI.SetActive(true);
-        yield return new WaitForSeconds(cantPlaceUIFlashTime);
-        this.cantPlaceUI.SetActive(false);
+    private IEnumerator BlinkObject(GameObject target){
+        target.SetActive(true);
+        yield return new WaitForSeconds(UIFlashTime);
+        target.SetActive(false);
     }
 
     string FormatTime(float time)

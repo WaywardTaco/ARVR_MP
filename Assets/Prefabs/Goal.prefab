@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6047032442824180751}
   - component: {fileID: 200159484434822193}
   - component: {fileID: 1239708311706768945}
+  - component: {fileID: 2290875425128383694}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -119,3 +120,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEntered: 0
+--- !u!114 &2290875425128383694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341095774640174523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622d9d78c04d6d740baaa73841f97596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _occlusionManager: {fileID: 0}
+  prefabToSpawn: {fileID: 3495247667438887226, guid: 872d9f71b27c51646a7cbad22e1f6af5, type: 3}
+  floorOffset: 1.1176
+  spawnInterval: 1
+  minSpawnRadius: 2
+  maxSpawnRadius: 20
+  maxFireCount: 100
+  spawnMask:
+    serializedVersion: 2
+    m_Bits: 64
+  pooledFires: []
+  spawnedFires: []
