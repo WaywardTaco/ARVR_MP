@@ -19,6 +19,10 @@ public class PlayerHealthUpdater : MonoBehaviour
         damageSFX = this.GetComponent<AudioSource>();
     }
 
+    public void ResetHealth(){
+        currentHealth = maxHealth;
+    }
+
     public void DealDamage(float amount){
         StartCoroutine(TriggerDamagePanel(amount));
     }

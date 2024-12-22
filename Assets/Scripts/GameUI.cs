@@ -16,6 +16,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject moveAwayUI;
     [SerializeField] private GameObject cantPlaceUI;
     [SerializeField] private float UIFlashTime;
+    [SerializeField] private PlayerHealthUpdater playerHealth;
     public TextMeshProUGUI stopwatchText; 
     public GameObject StartPlaceButton;
     private Button toggleButton;
@@ -24,7 +25,7 @@ public class GameUI : MonoBehaviour
     public float PlayerStartDist;
 
     private float elapsedTime = 0f;
-    private bool isRunning = false;
+    public bool isRunning = false;
     private bool isPressed = false;
 
     private GameObject objectiveTarget;
@@ -67,6 +68,8 @@ public class GameUI : MonoBehaviour
         isRunning = false;
         isGameOver = false;
         canStartGame = false;
+
+        playerHealth.ResetHealth();
     }
 
     public void EndGame(){

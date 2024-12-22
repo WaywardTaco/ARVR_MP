@@ -23,7 +23,12 @@ public class Objective : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerHealthUpdater>() != null)
         {
-            isEntered = true;
+            GameUI gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
+            if(gameUI != null){
+                if(gameUI.isRunning){
+                    isEntered = true;
+                }
+            }
         }
         else
         {
